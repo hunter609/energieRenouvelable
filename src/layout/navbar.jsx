@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NAV_LINKS } from '../constants'
 import { Menu, X } from 'lucide-react'
-import NavLinks from '../components/NavLinks'
+import { NavLinks } from '../components/NavLinks'
+import { Button } from '../components/button'
 import { 
   logoVariants, 
   mobileMenuVariants, 
@@ -52,15 +53,14 @@ export const Navbar = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.3, type: "spring" }}
         className="hidden lg:block"
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
       >
-        <motion.button 
-          variants={buttonVariants}
-          whileHover="hover"
-          whileTap="tap"
-          className="bg-green-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full hover:bg-green-600 transition duration-300"
-        >
-          Contact us
-        </motion.button>
+        <Button 
+          color="bg-green-500" 
+          text="Contact us" 
+        />
       </motion.div>
 
       {/* Mobile Menu Toggle */}
@@ -95,20 +95,16 @@ export const Navbar = () => {
                 onLinkClick={toggleMobileMenu}
               />
             </ul>
-            <motion.button 
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-              className="mt-8 bg-green-500 text-white px-8 py-4 rounded-full hover:bg-green-600 transition duration-300"
-              onClick={toggleMobileMenu}
-            >
-              Contact us
-            </motion.button>
+              
+            <div className="mt-8" onClick={toggleMobileMenu}>
+              <Button 
+                color="bg-green-500" 
+                text="Contact us" 
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>
   )
 }
-
-export default Navbar

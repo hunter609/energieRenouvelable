@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { navLinkVariants } from "../utils/animations";
 
-const NavLinks = ({ links, isMobile = false, onLinkClick, hoveredLink, setHoveredLink, }) => {
+export const NavLinks = ({ links, isMobile = false, onLinkClick, hoveredLink, setHoveredLink }) => {
   const linkClassName = isMobile
     ? "text-gray-700 text-2xl cursor-pointer hover:text-green-600"
     : "relative group text-gray-700 flex items-center justify-center cursor-pointer";
@@ -19,7 +19,10 @@ const NavLinks = ({ links, isMobile = false, onLinkClick, hoveredLink, setHovere
       onMouseLeave={() => !isMobile && setHoveredLink(null)}
       onClick={() => onLinkClick && onLinkClick()}
     >
-      <a href={link.href} className="pb-1.5">
+      <a 
+        href={link.href} 
+        className="pb-1.5 hover:text-green-600 transition-colors duration-300"
+      >
         {link.label}
       </a>
       {!isMobile && (
@@ -36,4 +39,3 @@ const NavLinks = ({ links, isMobile = false, onLinkClick, hoveredLink, setHovere
     </motion.li>
   ));
 };
-export default NavLinks;
