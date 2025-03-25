@@ -10,5 +10,5 @@ html, body {
 } 
 
 body{
-  @apply font-Quickand;
+  @apply font-Quickand bg-gray-300;
 }
