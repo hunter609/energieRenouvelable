@@ -10,5 +10,5 @@ html, body {
 } 
 
 body{
-  @apply font-Quickand bg-softGreen;
+  @apply font-Quickand;
 }

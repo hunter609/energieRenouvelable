@@ -55,10 +55,11 @@ export const Navbar = () => {
         className="hidden lg:block"
         variants={buttonVariants}
         whileHover="hover"
-        whileTap="tap"
       >
         <Button 
-          color="bg-green-500" 
+          color="bg-white" 
+          textColor="text-darkGreen"
+          hoverColor="hover:bg-gray-100"
           text="Contact us" 
         />
       </motion.div>
@@ -98,7 +99,8 @@ export const Navbar = () => {
               
             <div className="mt-8" onClick={toggleMobileMenu}>
               <Button 
-                color="bg-green-500" 
+                color="bg-white" 
+                textColor="text-darkGreen"
                 text="Contact us" 
               />
             </div>
