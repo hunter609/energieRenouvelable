@@ -1,13 +1,14 @@
 import React from "react";
 import { Navbar } from "../layout/navbar";
 import { motion } from "framer-motion";
+import Globe from "../components/models/Globe";
 
 export const Hero = () => {
-  // Variantes d'animation pour différents éléments - sans mouvement horizontal
+  // Animation variants for different elements - without horizontal movement
   const textVariants = {
     hidden: { opacity: 0, y: 10 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.6 }
     }
@@ -15,28 +16,28 @@ export const Hero = () => {
 
   const titleVariants = {
     hidden: { opacity: 0 },
-    visible: (i) => ({ 
+    visible: (i) => ({
       opacity: 1,
-      transition: { 
+      transition: {
         duration: 0.7,
-        delay: i * 0.2 
+        delay: i * 0.2
       }
     })
   };
 
   const buttonVariants = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.5,
         delay: 0.6
       }
     },
-    hover: { 
+    hover: {
       scale: 1.05,
-      backgroundColor: "#4ade80", 
+      backgroundColor: "#4ade80",
       transition: { duration: 0.3 }
     }
   };
@@ -52,26 +53,37 @@ export const Hero = () => {
     }
   };
 
+  const globeContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        delay: 0.4
+      }
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex flex-col">
-      {/* Background Split - sans animation */}
+      {/* Background Split - without animation */}
       <div className="absolute inset-0 flex pointer-events-none">
-        {/* Partie gauche - vert clair */}
+        {/* Left part - light green */}
         <div className="w-full md:w-[70%] bg-[#f2fcf4]"></div>
-        {/* Partie droite - vert foncé */}
+        {/* Right part - dark green */}
         <div className="w-0 md:w-[30%] bg-[#66c486]"></div>
       </div>
 
-      {/* Navbar - sans animation comme demandé */}
+      {/* Navbar - without animation as requested */}
       <Navbar />
 
-      {/* Contenu principal */}
+      {/* Main content */}
       <div className="flex-grow flex relative">
-        {/* Contenu superposé */}
+        {/* Overlay content */}
         <div className="absolute inset-0 flex flex-col md:flex-row">
           {/* Text Content */}
           <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:pl-16 z-10">
-            <motion.h1 
+            <motion.h1
               className="text-4xl md:text-5xl font-bold text-gray-800 mb-6"
               initial="hidden"
               animate="visible"
@@ -89,8 +101,8 @@ export const Hero = () => {
                 Inspired by Nature.
               </motion.span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               className="text-lg text-gray-600 mb-8"
               variants={textVariants}
               initial="hidden"
@@ -99,8 +111,8 @@ export const Hero = () => {
               Sustainable solutions that harmonize technology with the natural
               world.
             </motion.p>
-            
-            <motion.button 
+
+            <motion.button
               className="bg-green-500 text-white px-6 py-3 rounded-full transition duration-300 w-48"
               variants={buttonVariants}
               initial="hidden"
@@ -111,29 +123,38 @@ export const Hero = () => {
             </motion.button>
           </div>
 
-          {/* 3D Globe Illustration */}
-          <motion.div 
+          {/* 3D Globe Illustration - improved container */}
+          <motion.div
             className="w-full md:w-1/2 flex items-center justify-center relative"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            variants={globeContainerVariants}
+            initial="hidden"
+            animate="visible"
+            style={{
+              height: "100%",
+              overflow: "hidden"
+            }}
           >
-            {/* Contenu du globe à ajouter ici */}
+            <div className="w-full h-full" style={{
+              overflow: "hidden",
+              transformOrigin: "center"
+            }}>
+              <Globe />
+            </div>
           </motion.div>
         </div>
 
-        {/* Floating Circles avec animation */}
-        <motion.div 
+        {/* Floating Circles with animation */}
+        <motion.div
           className="absolute bottom-24 left-16 w-8 h-8 bg-green-300 rounded-full"
           variants={floatingCircleVariants}
           animate="animate"
         />
-        
-        <motion.div 
+
+        <motion.div
           className="absolute bottom-20 right-20 w-6 h-6 bg-green-200 rounded-full"
           variants={floatingCircleVariants}
           animate="animate"
-          transition={{ 
+          transition={{
             duration: 4,
             repeat: Infinity,
             ease: "easeInOut",
