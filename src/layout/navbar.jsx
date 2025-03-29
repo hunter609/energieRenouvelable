@@ -83,7 +83,7 @@ export const Navbar = () => {
         px-4 sm:px-6 md:px-10 lg:px-12
         transition-all duration-300 ease-in-out
         ${scrolled 
-          ? 'bg-white shadow-lg py-2 md:py-3' 
+          ? 'bg-white shadow-md py-2 md:py-3' 
           : 'bg-white md:bg-transparent py-3 md:py-5'}
       `}
     >
@@ -188,7 +188,7 @@ export const Navbar = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="md:hidden fixed inset-0 bg-white/98 backdrop-blur-md z-40 flex flex-col items-center justify-center"
+            className="md:hidden fixed inset-0 bg-white backdrop-blur-md z-40 flex flex-col items-center justify-center"
           >
             <motion.div 
               className="absolute top-4 right-4"
@@ -215,7 +215,7 @@ export const Navbar = () => {
               <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">ngrodeck</span>
             </motion.div>
             
-            <ul className="space-y-5 sm:space-y-6 text-center w-full px-6">
+            <ul className="space-y-5 sm:space-y-6  w-full px-6">
               <NavLinks 
                 links={NAV_LINKS} 
                 isMobile={true}

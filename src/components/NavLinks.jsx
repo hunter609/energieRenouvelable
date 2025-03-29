@@ -20,7 +20,7 @@ export const NavLinks = ({ links, hoveredLink, setHoveredLink, isMobile, isTable
               className={`
                 font-medium transition-all duration-100 relative
                 ${isMobile 
-                  ? 'text-base sm:text-xl text-gray-800 hover:text-green-600 py-2' 
+                  ? 'text-base sm:text-xl text-gray-800 hover:text-green-600 py-2 text-center' 
                   : `${isTablet
                       ? (scrolled ? 'text-sm' : 'text-base')
                       : (scrolled ? 'text-base' : 'text-base')
