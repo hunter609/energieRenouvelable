@@ -1,41 +1,61 @@
-import { motion } from "framer-motion";
-import { navLinkVariants } from "../utils/animations";
+import React from 'react'
+import { motion } from 'framer-motion'
 
-export const NavLinks = ({ links, isMobile = false, onLinkClick, hoveredLink, setHoveredLink }) => {
-  const linkClassName = isMobile
-    ? "text-gray-700 text-2xl cursor-pointer hover:text-green-600"
-    : "relative group text-gray-700 flex items-center justify-center cursor-pointer";
-
-  return links.map((link, index) => (
-    <motion.li
-      key={link.key}
-      custom={index}
-      variants={navLinkVariants}
-      initial="initial"
-      animate="animate"
-      whileHover="hover"
-      className={linkClassName}
-      onMouseEnter={() => !isMobile && setHoveredLink(link.key)}
-      onMouseLeave={() => !isMobile && setHoveredLink(null)}
-      onClick={() => onLinkClick && onLinkClick()}
-    >
-      <a 
-        href={link.href} 
-        className="pb-1.5 hover:text-green-600 transition-colors duration-300"
-      >
-        {link.label}
-      </a>
-      {!isMobile && (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{
-            scale: hoveredLink === link.key ? 1 : 0,
-            opacity: hoveredLink === link.key ? 1 : 0,
-          }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-green-500 rounded-full"
-        />
-      )}
-    </motion.li>
-  ));
-};
+export const NavLinks = ({ links, hoveredLink, setHoveredLink, isMobile, isTablet, onLinkClick, scrolled }) => {
+  return (
+    <>
+      {links.map((link) => {
+        const isHovered = hoveredLink === link.label
+        
+        return (
+          <motion.li
+            key={link.label}
+            className="relative flex items-center"
+            onHoverStart={() => !isMobile && setHoveredLink?.(link.label)}
+            onHoverEnd={() => !isMobile && setHoveredLink?.(null)}
+            onClick={isMobile && onLinkClick ? () => onLinkClick() : undefined}
+          >
+            <a 
+              href={link.href} 
+              className={`
+                font-medium transition-all duration-100 relative
+                ${isMobile 
+                  ? 'text-base sm:text-xl text-gray-800 hover:text-green-600 py-2' 
+                  : `${isTablet
+                      ? (scrolled ? 'text-sm' : 'text-base')
+                      : (scrolled ? 'text-base' : 'text-base')
+                    } ${scrolled 
+                      ? 'text-gray-700 hover:text-green-600' 
+                      : 'text-gray-800 hover:text-green-500'
+                    }`
+                }
+              `}
+            >
+              {link.label}
+              
+              {/* Indicateur mobile pour le lien actif */}
+              {isMobile && link.active && (
+                <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-green-500"></span>
+              )}
+            </a>
+            
+            {/* Point indicateur pour desktop/tablet (version originale) */}
+            {!isMobile && isHovered && (
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
+                className={`
+                  absolute -bottom-1 left-1/2 transform -translate-x-1/2
+                  w-1.5 h-1.5 rounded-full
+                  bg-green-500 
+                  transition-all duration-300
+                `}
+              />
+            )}
+          </motion.li>
+        )
+      })}
+    </>
+  )
+}

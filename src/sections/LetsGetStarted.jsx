@@ -4,7 +4,7 @@ import { ArrowRight, ArrowRightCircle } from 'lucide-react';
 
 export default function LetsGetStarted() {
   return (
-    <div className="bg-green-50 px-4 py-10">
+    <div className="container bg-green-50 px-4 py-10">
         <motion.div
             className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-green-500 rounded-2xl py-10"
         >

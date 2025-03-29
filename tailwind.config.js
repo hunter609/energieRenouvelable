@@ -23,6 +23,13 @@ export default {
     fontFamily: {
       Quickand: ["Quicksand", "sans-serif"],
     }, 
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "12px",
+        md: "32px",
+      },
+    },
     
   },
   plugins: [],

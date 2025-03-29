@@ -53,7 +53,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col container" id="home">
       {/* Background Split - sans animation */}
       <div className="absolute inset-0 flex pointer-events-none">
         {/* Partie gauche - vert clair */}
