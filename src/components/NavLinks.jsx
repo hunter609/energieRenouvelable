@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-scroll'
 
 export const NavLinks = ({ links, hoveredLink, setHoveredLink, isMobile, isTablet, onLinkClick, scrolled }) => {
   return (
@@ -15,10 +16,14 @@ export const NavLinks = ({ links, hoveredLink, setHoveredLink, isMobile, isTable
             onHoverEnd={() => !isMobile && setHoveredLink?.(null)}
             onClick={isMobile && onLinkClick ? () => onLinkClick() : undefined}
           >
-            <a 
-              href={link.href} 
+            <Link 
+              to={link.href.replace('#', '')} 
+              spy={true}
+              smooth={true}
+              offset={-80} 
+              duration={800} 
               className={`
-                font-medium transition-all duration-100 relative
+                font-medium transition-all duration-100 relative cursor-pointer
                 ${isMobile 
                   ? 'text-base sm:text-xl text-gray-800 hover:text-green-600 py-2 text-center' 
                   : `${isTablet
@@ -37,7 +42,7 @@ export const NavLinks = ({ links, hoveredLink, setHoveredLink, isMobile, isTable
               {isMobile && link.active && (
                 <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-green-500"></span>
               )}
-            </a>
+            </Link>
             
             {/* Point indicateur pour desktop/tablet (version originale) */}
             {!isMobile && isHovered && (
