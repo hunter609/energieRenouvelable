@@ -120,12 +120,13 @@ export const Hero = () => {
             </motion.button>
           </div>
 
-          {/* Globe Container */}
+          {/* Globe Container - Modified to take full height of the screen */}
           <motion.div
-            className="w-full md:w-[40%] lg:w-1/2 h-[300px] md:h-[500px] lg:h-[600px] relative"
+            className="w-full md:w-[40%] lg:w-1/2 absolute md:relative right-0 top-0 h-full md:h-full"
             variants={globeContainerVariants}
             initial="hidden"
             animate="visible"
+            // style={{ pointerEvents: "none" }}
           >
             <div className="w-full h-full">
               <Globe />
