@@ -1,32 +1,8 @@
-import React, { memo } from 'react';
-
-// Extraction des données statiques
-const PRODUCTS = [
-  {
-    id: 1,
-    name: "Dry Distilled Grain",
-    description: "High-quality distilled grain products for agricultural applications.",
-    image: "https://img.freepik.com/free-photo/quinoa-real_1368-9186.jpg?uid=R100988146&ga=GA1.1.1549274076.1728654303&semt=ais_hybrid",
-    alt: "Hands holding dry distilled grain"
-  },
-  {
-    id: 2,
-    name: "First Generation Ethanol Biofuel",
-    description: "Renewable energy solution with reduced carbon emissions.",
-    image: "https://img.freepik.com/premium-photo/science-background-illustration-scientific-design-flasks-glass-chemistry-physics-elements_839051-3772.jpg?uid=R100988146&ga=GA1.1.1549274076.1728654303&semt=ais_hybrid",
-    alt: "Green flask containing ethanol biofuel",
-    featured: true
-  },
-  {
-    id: 3,
-    name: "FOSD Oil",
-    description: "Premium oil extract with superior performance characteristics.",
-    image: "https://img.freepik.com/free-vector/oil-petroleum-platform_1284-5587.jpg?uid=R100988146&ga=GA1.1.1549274076.1728654303&semt=ais_hybrid",
-    alt: "Glass bottle of FOSD oil"
-  }
-];
-
-// SVG extraits en constantes pour éviter les re-render
+import React, { useEffect, useRef } from 'react';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { PRODUCTS } from '../constants/productsData';
+import { ProductCard } from '../components/ProductCards';
+// SVG extraits en constantes
 const TOP_WAVE = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" className="w-full h-40">
     <path 
@@ -47,95 +23,112 @@ const BOTTOM_WAVE = (
   </svg>
 );
 
-// Composant de carte de produit memoïsé
-const ProductCard = memo(({ product }) => (
-  <div className="group relative">
-    <div className="relative bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-      {/* Badge */}
-      {product.featured && (
-        <div className="absolute top-4 right-4 z-20">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-600 text-white">
-            Featured
-          </span>
-        </div>
-      )}
-      
-      {/* Image container */}
-      <div className="relative h-64 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-80 transition-opacity duration-300 z-10"></div>
-        <img 
-          src={product.image} 
-          alt={product.alt}
-          loading="lazy"
-          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-      
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition-colors">
-          {product.name}
-        </h3>
-        <p className="text-gray-600 mb-4">
-          {product.description}
-        </p>
-        <div className="flex justify-between items-center">
-          <a href="#" className="text-green-600 font-medium hover:text-green-700 inline-flex items-center transition-colors">
-            Learn more
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-          
-          <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 cursor-pointer hover:bg-green-600 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-));
+// Animations variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { 
+    opacity: 1,
+    transition: { 
+      staggerChildren: 0.1,
+      delayChildren: 0.3 
+    }
+  }
+};
 
 // Composant principal optimisé
 export const Products = () => {
+  const controls = useAnimation();
+  const headerControls = useAnimation();
+  const buttonControls = useAnimation();
+  
+  // Références pour la détection d'intersection
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { 
+    once: false,      
+    threshold: 0.1 
+  });
+  
+  // Déclencher les animations quand la section devient visible
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+      headerControls.start({ opacity: 1, y: 0 });
+      buttonControls.start({ opacity: 1, y: 0 });
+    } else {
+      controls.start("hidden");
+      headerControls.start({ opacity: 0, y: -20 });
+      buttonControls.start({ opacity: 0, y: 20 });
+    }
+  }, [inView, controls, headerControls, buttonControls]);
+
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-white to-green-50 py-24 px-4" id='products'>
+    <section 
+      ref={sectionRef}
+      className="relative w-full overflow-hidden bg-gradient-to-b from-white to-green-50 py-24 px-4" 
+      id="products"
+    >
       {/* Background decorative elements */}
-      {/* <div className="absolute top-0 left-0 right-0 w-full h-40 opacity-20">
-        {TOP_WAVE}
-      </div> */}
-      
       <div className="absolute bottom-0 left-0 right-0 w-full h-64 opacity-10">
         {BOTTOM_WAVE}
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
-          <span className="inline-block px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full mb-3">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={headerControls}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-20"
+        >
+          <motion.span 
+            initial={{ scale: 0 }}
+            animate={inView ? { scale: 1 } : { scale: 0 }}
+            transition={{ type: "spring", stiffness: 400, delay: 0.2 }}
+            className="inline-block px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full mb-3"
+          >
             Innovation
-          </span>
+          </motion.span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Our <span className="text-green-600">Products</span> & Technology
           </h2>
           <p className="max-w-2xl mx-auto text-gray-600 text-lg">
             Discover our premium line of sustainable products designed with the future in mind.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
           {PRODUCTS.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              inView={inView}
+            />
           ))}
-        </div>
+        </motion.div>
 
-        <div className="flex justify-center mt-16">
-          <button className="relative overflow-hidden group bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full shadow-md transition-all duration-300">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={buttonControls}
+          transition={{ delay: 0.8 }}
+          className="flex justify-center mt-16"
+        >
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative overflow-hidden bg-green-600 text-white font-bold py-4 px-8 rounded-full shadow-md"
+          >
             <span className="relative z-10">View All Products</span>
-            <span className="absolute inset-0 h-full w-0 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-          </button>
-        </div>
+            <motion.span 
+              initial={{ width: 0 }}
+              whileHover={{ width: "100%" }}
+              className="absolute inset-0 h-full bg-green-500"
+            ></motion.span>
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );
