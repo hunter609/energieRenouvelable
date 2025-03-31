@@ -35,7 +35,7 @@ const EcosystemsSensitization = () => {
                     <motion.div 
                         className="lg:w-1/2 bg-green-50 p-8 rounded-2xl shadow-lg
                                 lg:absolute lg:right-0 lg:top-1/3 lg:transform lg:-translate-y-1/3
-                                mt-4 lg:mt-0 flex justify-center items-center relative overflow-hidden"
+                                -mt-4 md:mt-4 lg:mt-0 flex justify-center items-center relative overflow-hidden"
                         style={{ height: '65%' }}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -145,7 +145,7 @@ const EcosystemsSensitization = () => {
                     </motion.div>
 
                     {/* Image côté droit */}
-                    <div className="lg:w-3/5 lg:ml-auto">
+                    <div className="lg:w-3/5 lg:ml-auto md:mt-0 -mt-4">
                         <img 
                         src="/images/eng-ren-5.webp" 
                         alt="Mains tenant une jeune plante dans du terreau" 
