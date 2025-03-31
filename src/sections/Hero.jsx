@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Globe from "../components/models/Globe";
 
 export const Hero = () => {
-  // Animation variants for different elements - without horizontal movement
   const textVariants = {
     hidden: { opacity: 0, y: 10 },
     visible: {
@@ -65,32 +64,30 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col container mx-auto px-4 sm:px-6 lg:px-8" id="home">
-      {/* Background Split - enhanced for responsiveness */}
-      <div className="absolute inset-0 flex pointer-events-none">
-        {/* Left part - light green */}
-        <div className="w-full sm:w-[80%] md:w-[70%] lg:w-[65%] bg-[#f2fcf4]"></div>
-        {/* Right part - dark green */}
-        <div className="w-0 sm:w-[20%] md:w-[30%] lg:w-[35%] bg-[#66c486]"></div>
-      </div>
+    <div className="relative min-h-screen bg-[#f2fcf4]" id="home">
+      {/* Background Split */}
+      <div 
+        className="absolute top-0 right-0 bottom-0 hidden md:block bg-[#66c486]"
+        style={{ width: '30%' }}
+      />
 
-      {/* Navbar - without animation as requested */}
-      <Navbar />
+      {/* Content Container */}
+      <div className="relative max-w-[1440px] mx-auto h-screen flex flex-col px-4 md:px-6 lg:px-8">
+        {/* Navbar */}
+        <Navbar />
 
-      {/* Main content with improved responsiveness */}
-      <div className="flex-grow flex relative mt-4 sm:mt-8 md:mt-0">
-        {/* Overlay content */}
-        <div className="absolute inset-0 flex flex-col md:flex-row">
-          {/* Text Content - improved spacing for all screen sizes */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center p-4 sm:p-6 md:p-8 md:pl-8 lg:pl-16 z-10">
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
+          {/* Text Content */}
+          <div className="w-full md:w-[60%] lg:w-1/2 flex flex-col justify-center z-10">
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 sm:mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6"
               initial="hidden"
               animate="visible"
               custom={0}
               variants={titleVariants}
             >
-              <span className="text-darkGreen">Renewable </span>Energy,
+              <span className="text-[#2c7a44]">Renewable </span>Energy,
               <br />
               <motion.span
                 custom={1}
@@ -103,7 +100,7 @@ export const Hero = () => {
             </motion.h1>
 
             <motion.p
-              className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-md"
+              className="text-lg md:text-xl text-gray-600 mb-8 max-w-[600px]"
               variants={textVariants}
               initial="hidden"
               animate="visible"
@@ -113,7 +110,7 @@ export const Hero = () => {
             </motion.p>
 
             <motion.button
-              className="bg-green-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full transition duration-300 w-36 sm:w-48"
+              className="bg-green-500 text-white px-8 py-4 rounded-full text-lg font-medium transition duration-300 hover:bg-green-600 w-auto inline-flex items-center justify-center max-w-[200px]"
               variants={buttonVariants}
               initial="hidden"
               animate="visible"
@@ -123,35 +120,27 @@ export const Hero = () => {
             </motion.button>
           </div>
 
-          {/* 3D Globe Illustration - responsive container */}
+          {/* Globe Container */}
           <motion.div
-            className="w-full md:w-1/2 flex items-center justify-center relative mt-8 sm:mt-12 md:mt-0"
+            className="w-full md:w-[40%] lg:w-1/2 h-[300px] md:h-[500px] lg:h-[600px] relative"
             variants={globeContainerVariants}
             initial="hidden"
             animate="visible"
-            style={{
-              height: "100%",
-              overflow: "hidden"
-            }}
           >
-            <div className="w-full h-full scale-75 sm:scale-90 md:scale-100" style={{
-              overflow: "hidden",
-              transformOrigin: "center"
-            }}>
+            <div className="w-full h-full">
               <Globe />
             </div>
           </motion.div>
         </div>
 
-        {/* Floating Circles with responsive positioning */}
+        {/* Decorative Elements */}
         <motion.div
-          className="absolute bottom-12 sm:bottom-16 md:bottom-24 left-6 sm:left-12 md:left-16 w-6 sm:w-8 h-6 sm:h-8 bg-green-300 rounded-full"
+          className="absolute bottom-24 left-16 w-8 h-8 bg-green-300 rounded-full opacity-70 hidden md:block"
           variants={floatingCircleVariants}
           animate="animate"
         />
-
         <motion.div
-          className="absolute bottom-8 sm:bottom-12 md:bottom-20 right-8 sm:right-16 md:right-20 w-4 sm:w-6 h-4 sm:h-6 bg-green-200 rounded-full"
+          className="absolute bottom-40 left-32 w-4 h-4 bg-green-400 rounded-full opacity-60 hidden md:block"
           variants={floatingCircleVariants}
           animate="animate"
           transition={{
@@ -161,7 +150,20 @@ export const Hero = () => {
             delay: 0.5
           }}
         />
+        <motion.div
+          className="absolute top-32 right-48 w-6 h-6 bg-green-200 rounded-full opacity-50 hidden md:block"
+          variants={floatingCircleVariants}
+          animate="animate"
+          transition={{
+            duration: 3.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.8
+          }}
+        />
       </div>
     </div>
   );
 };
+
+export default Hero;
