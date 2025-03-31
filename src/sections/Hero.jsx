@@ -65,26 +65,26 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col container" id="home">
-      {/* Background Split - sans animation */}
+    <div className="relative min-h-screen flex flex-col container mx-auto px-4 sm:px-6 lg:px-8" id="home">
+      {/* Background Split - enhanced for responsiveness */}
       <div className="absolute inset-0 flex pointer-events-none">
         {/* Left part - light green */}
-        <div className="w-full md:w-[70%] bg-[#f2fcf4]"></div>
+        <div className="w-full sm:w-[80%] md:w-[70%] lg:w-[65%] bg-[#f2fcf4]"></div>
         {/* Right part - dark green */}
-        <div className="w-0 md:w-[30%] bg-[#66c486]"></div>
+        <div className="w-0 sm:w-[20%] md:w-[30%] lg:w-[35%] bg-[#66c486]"></div>
       </div>
 
       {/* Navbar - without animation as requested */}
       <Navbar />
 
-      {/* Main content */}
-      <div className="flex-grow flex relative">
+      {/* Main content with improved responsiveness */}
+      <div className="flex-grow flex relative mt-4 sm:mt-8 md:mt-0">
         {/* Overlay content */}
         <div className="absolute inset-0 flex flex-col md:flex-row">
-          {/* Text Content */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center p-8 md:pl-16 z-10">
+          {/* Text Content - improved spacing for all screen sizes */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center p-4 sm:p-6 md:p-8 md:pl-8 lg:pl-16 z-10">
             <motion.h1
-              className="text-4xl md:text-5xl font-bold text-gray-800 mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 sm:mb-6"
               initial="hidden"
               animate="visible"
               custom={0}
@@ -103,7 +103,7 @@ export const Hero = () => {
             </motion.h1>
 
             <motion.p
-              className="text-lg text-gray-600 mb-8"
+              className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-md"
               variants={textVariants}
               initial="hidden"
               animate="visible"
@@ -113,7 +113,7 @@ export const Hero = () => {
             </motion.p>
 
             <motion.button
-              className="bg-green-500 text-white px-6 py-3 rounded-full transition duration-300 w-48"
+              className="bg-green-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full transition duration-300 w-36 sm:w-48"
               variants={buttonVariants}
               initial="hidden"
               animate="visible"
@@ -123,9 +123,9 @@ export const Hero = () => {
             </motion.button>
           </div>
 
-          {/* 3D Globe Illustration - improved container */}
+          {/* 3D Globe Illustration - responsive container */}
           <motion.div
-            className="w-full md:w-1/2 flex items-center justify-center relative"
+            className="w-full md:w-1/2 flex items-center justify-center relative mt-8 sm:mt-12 md:mt-0"
             variants={globeContainerVariants}
             initial="hidden"
             animate="visible"
@@ -134,7 +134,7 @@ export const Hero = () => {
               overflow: "hidden"
             }}
           >
-            <div className="w-full h-full" style={{
+            <div className="w-full h-full scale-75 sm:scale-90 md:scale-100" style={{
               overflow: "hidden",
               transformOrigin: "center"
             }}>
@@ -143,15 +143,15 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Floating Circles with animation */}
+        {/* Floating Circles with responsive positioning */}
         <motion.div
-          className="absolute bottom-24 left-16 w-8 h-8 bg-green-300 rounded-full"
+          className="absolute bottom-12 sm:bottom-16 md:bottom-24 left-6 sm:left-12 md:left-16 w-6 sm:w-8 h-6 sm:h-8 bg-green-300 rounded-full"
           variants={floatingCircleVariants}
           animate="animate"
         />
 
         <motion.div
-          className="absolute bottom-20 right-20 w-6 h-6 bg-green-200 rounded-full"
+          className="absolute bottom-8 sm:bottom-12 md:bottom-20 right-8 sm:right-16 md:right-20 w-4 sm:w-6 h-4 sm:h-6 bg-green-200 rounded-full"
           variants={floatingCircleVariants}
           animate="animate"
           transition={{
