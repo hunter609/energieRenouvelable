@@ -7,6 +7,7 @@ import CollaborationAndPartners from "../sections/CollaborationAndPartners";
 import BlogsAndNews from "../sections/BlogsAndNews";
 import LetsGetStarted from "../sections/LetsGetStarted";
 import EcosystemsSensitization from "../sections/EcosystemsSensitization";
+import LeadingTheWay from "../sections/LeadingTheWay";
 
 export const MainLayout = () => {
   return (
@@ -18,6 +19,7 @@ export const MainLayout = () => {
       <BlogsAndNews />
       <LetsGetStarted />
       <EcosystemsSensitization />
+      <LeadingTheWay />
       <Footer />
     </>
   );
